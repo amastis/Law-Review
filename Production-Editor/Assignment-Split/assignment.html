@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+         
+        button { 
+            margin: 0 auto;
+            display: block;
+        }
+
+        #output {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="inputForm">
+        <label for="numFootnotes">Number of Footnotes:</label>
+        <input type="number" id="numFootnotes" required>
+        <br>
+
+        <label for="numPages">Number of Pages:</label>
+        <input type="number" id="numPages" required>
+        <br>
+
+        <label for="numPeople">Number of People in Group:</label>
+        <input type="number" id="numPeople" required>
+        <br>
+
+        <button type="button" onclick="generateOutput()">Submit</button>
+    </form>
+
+    <pre id="output"></pre>
+
+    <!-- Include the external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
