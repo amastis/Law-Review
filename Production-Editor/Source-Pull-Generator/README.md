@@ -1,11 +1,13 @@
 # Downloading the program
 
 Please click the link based on your operating system.
-MacOS: 
-Windows: 
+
+[MacOS](https://github.com/amastis/Law-Review/releases/download/v1.0.0/MacOS.-.Source_Pull_Generator.zip)
+
+Windows: Not available currently.
 
 # How to use the program
-1. After downloading the program for your operating system, open the program (click on the downloaded file).
+1. After downloading the program for your operating system, unzip the file (click on the downloaded file), and open the program (click on the `Source Pull Generator` file in your `Downloads` folder).
 1. Allow the program to access your `Downloads` folder, this is where the output will be saved.
 
 <p align="center">
