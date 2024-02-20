@@ -11,7 +11,7 @@ Windows: Not available currently.
 - The page should look like the following:
 
 <p align="center">
-  <img src="imgs/create-api-key.png" width="350" alt="Perma.cc API Key Generation Page">
+  <img src="imgs/create-api-key.png" width="650" alt="Perma.cc API Key Generation Page">
 </p>
 
 2. Click the *`Generate an API key`* button, and use the string of characters that are generated in Step 4 below.
