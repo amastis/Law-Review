@@ -35,4 +35,4 @@ hiddenimports = collect_submodules('docx2python')
    - Note: the executable file should only work on the OS that you are working on (i.e. building the executable on MacOS will only create a MacOS executable). You will have to go through this process multiple times if you are trying to update the program for each OS on that OS.
 
 ## Credits: 
-- icon design: <a href="https://www.flaticon.com/free-icons/sp" title="sp icons">sp created by Shuvo.Das - Flaticon</a>
+- icon design: <a href="https://www.flaticon.com/free-icons/pl-file" title="pl-file icons">Pl-file icons created by Freepik - Flaticon</a>
