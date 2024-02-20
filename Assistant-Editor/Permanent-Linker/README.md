@@ -2,7 +2,7 @@
 
 Please click the link based on your operating system.
 
-[MacOS]()
+[MacOS](https://github.com/amastis/Law-Review/releases/download/v1.0.0/MacOS.-.Permanent_Linker.zip)
 
 Windows: Not available currently.
 
