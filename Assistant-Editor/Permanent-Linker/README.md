@@ -20,6 +20,8 @@ Windows: Not available currently.
 
 # How to use the program
 1. After downloading the program for your operating system, unzip the file (click on the downloaded file), and open the program (click on the `Permanent Linker` file in your `Downloads` folder).
+- Note: You may have to change your device settings to allow the code to run (as Mac may detect it as 'malicious software'). [Click Here on how to change your settings to allow the program to work.](https://iboysoft.com/howto/apple-cannot-check-it-for-malicious-software.html#:~:text=the%20next%20solution.-,Way%202%3A%20Change%20settings%20in%20Security%20%26%20Privacy,-When%20the%20error) Further you may have to open the app using the [following steps](https://support.apple.com/guide/mac-help/apple-cant-check-app-for-malicious-software-mchleab3a043/mac).
+
 1. Allow the program to access your `Downloads` folder, this is where the output will be saved.
 
 <p align="center">
