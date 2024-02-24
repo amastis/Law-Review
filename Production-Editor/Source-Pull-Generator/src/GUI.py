@@ -105,7 +105,8 @@ class GuiPart(object):
         if self.file_path:
             filename_entry.config(state='normal')
             filename_entry.delete(0, tk.END)
-            filename_entry.insert(0, self.file_path)
+            file_name: str = path.split(self.file_path)[1]
+            filename_entry.insert(0, file_name)
             filename_entry.config(state='disabled')
 
             if file_upload_num == 0:
