@@ -71,12 +71,11 @@ class GuiPart(object):
     def _create_file_upload_group(self, row, label_text, group_frame) -> None:
         # Add some space between each group
         group_frame.grid(row=row, column=0, columnspan=4, pady=5, padx=5, sticky=tk.N)
-        group_frame.bind("<Button-1>", lambda event, r=row: self.upload_file(r))
+        #group_frame.bind("<Button-1>", lambda event, r=row: self.upload_file(r, filename_entry))
 
         label = tk.Label(group_frame, text=label_text, anchor="w")
         label.grid(row=0, column=0, columnspan=2, pady=5, padx=5, sticky=tk.NSEW)
 
-        #
         #image_path = "path_to_your_image.png"  # Replace with the path to your image
         # https://pyinstaller.org/en/stable/runtime-information.html
         image_path = path.abspath(path.join(path.dirname(__file__), 'upload_icon.png'))
@@ -149,7 +148,7 @@ class GuiPart(object):
                 self.error(e)
 
     def success(self) -> None:
-        tk.messagebox.showinfo("Success", "Output has been downloaded to your downloads folder")
+        tk.messagebox.showinfo("Success", f"Check your downloads folder for the Excel file \n\n {law_review_source_pull.doc_info(self.file_path)}")
         self.menu()
 
     def error(self, message: str) -> None:
@@ -175,7 +174,7 @@ class GuiPart(object):
                 self.error(e)
             
             # https://stackoverflow.com/questions/55760066/stop-a-progress-bar-at-max-value-tkinter
-            if self.progressbar['value'] == (self.total - 1):
+            if self.progressbar['value'] >= (self.total - 1):
                 # stop queue -- move to next page
                 print('moving to finish page')
                 print(self.queue.qsize())
@@ -227,10 +226,12 @@ class ThreadedClient(object):
         # Start the periodic call in the GUI to check the queue
         self.periodic_call()
 
+        ''' # using causes error in self.progressbar
         try:
             self.thread1.join()
         except Exception as e:
             raise Exception(e)
+        '''
 
     def end_application(self):
         self.running = False  # Stops worker_thread1 (invoked by "Done" button).
