@@ -1,6 +1,7 @@
 from typing import Dict, List, Any
 import re
 import os
+import zipfile
 from pathlib import Path
 
 from docx2python import docx2python
@@ -19,6 +20,16 @@ def get_footnotes(file_path: str) -> Dict[int, List[str]]:
     footnotes: Dict[int, List[str]] = {c+1:[item[0].split('\t ', 1)[1]] for c, item in enumerate(filtered_footnotes)}
 
     return footnotes
+
+# https://github.com/python-openxml/python-docx/issues/780
+def get_total_pages(file_path: str) -> int:
+    docx_object = zipfile.ZipFile(file_path)
+    docx_property_file_data = docx_object.read('docProps/app.xml').decode()
+    page_count = re.search(r"<Pages>(\d+)</Pages>", docx_property_file_data).group(1)
+    return int(page_count)
+
+def doc_info(file_path: str) -> str:
+    return f"Number of Footnotes: {len(get_footnotes(file_path))}\nNumber of Pages: {get_total_pages(file_path)}"
 
 def separate_sources(source: str) -> List[str]:
     # split multiple citations based on the ";" in the structure
@@ -277,9 +288,11 @@ def remove_duplicate_internal_citations(df1: pandas.DataFrame) -> pandas.DataFra
     df1 = df1.drop(index=indexs_drop)
     return df1
 
-def get_links(df1: pandas.DataFrame, westlaw, progressbar) -> pandas.DataFrame:
+def get_links(df1: pandas.DataFrame, westlaw, total_footnotes: int, progressbar) -> pandas.DataFrame:
+    progress = 0
     for (_, item) in df1.iterrows(): # get links to cases
         progressbar.put(1)
+        progress += 1
         if item['Type'] == "Case":
             try:
                 search_term = re.findall('\d+\s[A-Za-z\.\d\s]+\s\d+', item['Source Name'])[0]
@@ -292,6 +305,22 @@ def get_links(df1: pandas.DataFrame, westlaw, progressbar) -> pandas.DataFrame:
                 except Exception as e:
                     progressbar.put(e)
 
+    # bc iterrows() are already compressed from the original footnote number 
+    remainder: int = total_footnotes - progress - 1 if progress else 0 
+    if remainder > 0:
+        progressbar.put(remainder)
+    return df1
+
+def article_links(df1: pandas.DataFrame) -> pandas.DataFrame:
+    for (_, item) in df1.iterrows(): # get article links from footnote itself
+        if item['Type'] == "Article":
+            try:
+                is_link = [link for link in re.findall(r"https?://[^\s]+", item['Source Name']) if 'perma' not in link][0]
+            except IndexError: 
+                print(item['Source Name'])
+                is_link = None
+            if is_link:
+                item['Link/Location'] = is_link
     return df1
 
 def download_excel(df1: pandas.DataFrame, file_name: str) -> None:
@@ -307,7 +336,8 @@ def create_excel(file_path: str, file_name: str, is_getting_links: bool, westlaw
     dataframe = to_pandas(footnotes)
     dataframe = remove_duplicate_internal_citations(dataframe)
     if is_getting_links:
-        dataframe = get_links(dataframe, westlaw, progressbar) # TODO use links to find duplicates
+        dataframe = get_links(dataframe, westlaw, total_footnotes, progressbar)
+    dataframe = article_links(dataframe) # TODO use links to find duplicates
     download_excel(dataframe, file_name)
     if not is_getting_links:
         progressbar.put(total_footnotes - 1)
