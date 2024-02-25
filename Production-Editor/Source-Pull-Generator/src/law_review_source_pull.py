@@ -56,7 +56,10 @@ def supra_source(source: str) -> int:
     elif 'supra note' in source:
         print('supra note')
         supra_pos = source[source.find('supra note') + len('supra note'):]
-        return re.findall('\d+', supra_pos)[0] # return first digit section
+        try:
+            return re.findall('\d+', supra_pos)[0] # return first digit section
+        except IndexError: # supra number is blank (usually ___)
+            return None
     
     # TODO
 
@@ -303,7 +306,7 @@ def get_links(df1: pandas.DataFrame, westlaw, total_footnotes: int, progressbar)
                 try:
                     item['Link/Location'] = westlaw.get_source_link(search_term)
                 except Exception as e:
-                    progressbar.put(e)
+                    progressbar.put(f'EXCEPTION: {search_term} {e}')
 
     # bc iterrows() are already compressed from the original footnote number 
     remainder: int = total_footnotes - progress - 1 if progress else 0 
