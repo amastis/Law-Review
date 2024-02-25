@@ -2,7 +2,7 @@
 
 Please click the link based on your operating system.
 
-[MacOS](https://github.com/amastis/Law-Review/releases/download/v1.0.0/MacOS.-.Source_Pull_Generator.zip)
+[MacOS](https://github.com/amastis/Law-Review/releases/download/v1.0.0/MacOS.-.Source_Pull_Generator_v1.0.1.zip)
 
 Windows: Not available currently.
 
