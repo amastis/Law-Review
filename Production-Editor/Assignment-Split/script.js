@@ -13,7 +13,7 @@ function splitForPeople(formattingStr, numPeople, splitting) {
     pageNum += Math.floor(splitting / numPeople);
     const finishPage = pageNum;
 
-    result += `${formattingStr}${startPage}-${finishPage}\n`;
+    result += `<li>${formattingStr}${startPage}-${finishPage}</li>`;
     console.log(`${formattingStr}${startPage}-${finishPage}`);
   }
   return result;
@@ -38,10 +38,10 @@ function splitForPeoplePages(formattingStr, numPeople, splitting) {
     const finishPage = pageNum;
 
     if (i === numPeopleHalf - 1 && numPeople % 2 === 1) {
-      result += `-   1 student on pgs ${startPage}-${finishPage}\n`;
+      result += `<li>1 student on pgs ${startPage}-${finishPage}</li>`;
       console.log(`-   1 student on pgs ${startPage}-${finishPage}`);
     } else {
-      result += `${formattingStr}${startPage}-${finishPage}\n`;
+      result += `<li>${formattingStr}${startPage}-${finishPage}</li>`;
       console.log(`${formattingStr}${startPage}-${finishPage}`);
     }
   }
@@ -49,12 +49,12 @@ function splitForPeoplePages(formattingStr, numPeople, splitting) {
 }
 
 function splitFootnotes(numPeople, footnotes) {
-  const formatting = '-   1 student on ';
+  const formatting = '1 student on ';
   return splitForPeople(formatting, numPeople, footnotes);
 }
 
 function splitPages(numPeople, pages) {
-  const formatting = '-   2 students on pgs ';
+  const formatting = '2 students on pgs ';
   return splitForPeoplePages(formatting, numPeople, pages);
 }
 
@@ -66,8 +66,9 @@ function generateOutput() {
 
   console.log(splitFootnotes(numPeople, numFootnotes));
 
-  var footnoteOutput = "Footnotes split:\n" + splitFootnotes(numPeople, numFootnotes) + "\n\n";
-  var pageOutput = "Pages split:\n" + splitPages(numPeople, numPages);
+	var header = `Author - ${numPages} pages, ${numFootnotes} footnotes\n\n`;
+  var footnoteOutput = "Footnotes split:\n<ul>" + splitFootnotes(numPeople, numFootnotes) + "</ul>\n";
+  var pageOutput = "Pages split:\n<ul>" + splitPages(numPeople, numPages) + "</ul>";
   // Display the output
-  document.getElementById('output').innerHTML = footnoteOutput + pageOutput;
+  document.getElementById('output').innerHTML = header + footnoteOutput + pageOutput;
 }
