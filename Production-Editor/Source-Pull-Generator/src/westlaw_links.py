@@ -58,6 +58,12 @@ class WestLaw:
                 element = WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.ID, 'cobalt_search_case_results')))
             except (NoSuchElementException, TimeoutException) as e: # no results?
                 pass
+            try: # for when there are no results
+                multiple_cases = WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.CLASS_NAME, 'co_searchResult_list')))
+                element = multiple_cases.find_element(By.TAG_NAME, 'h3')
+            except (TimeoutException, NoSuchElementException) as e:
+                pass # assumed that element was already assigned. so don't need reassignment
+
 
             if element: # TODO add comparison for source
                 # get first resource on search result page (taking you directly to the source)
@@ -91,3 +97,5 @@ if __name__ == '__main__':
     # TEST --  case with shepards warnings (creating modals) to case
     print(westlaw.get_source_link('48 S.Ct. 564'))
     print(westlaw.get_source_link('389 U.S. 347'))
+    # TEST - where there are multiple versions of a case
+    print(westlaw.get_source_link('448 U.S. 297'))
