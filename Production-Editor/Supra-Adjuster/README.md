@@ -12,7 +12,7 @@ Windows: Not available currently.
 1. Allow the program to access your `Downloads` folder, this is where the output will be saved.
 
 <p align="center">
-  <img src="imgs/PNG%20image.png" width="350" alt="Program User Interface">
+  <img src="imgs/PNG%20image.png" width="650" alt="Program User Interface">
 </p>
 
 3. Click upload to insert in the author's original Word document (make sure that document has all of the citations in footnotes and that there are no endnotes in the document) and the current edited author's document (make sure that all edits are accepted).
