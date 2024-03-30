@@ -1,3 +1,7 @@
+# Notes Before Usage
+
+While this program tries to predict what footnotes are being referenced the best way is to use [Word's cross-reference tool](https://www.youtube.com/watch?v=hhl7MtnUoD8). 
+
 # Downloading the program
 
 Please click the link based on your operating system.
